@@ -2,30 +2,37 @@
 
 #############ここから#############
 
-### util ###
 # デプロイしたいディレクトリの場所
-deploy_path='./www/'
-# デプロイするプロジェクトのディレクトリ名
-proj_name='go-code'
-# リモートリポジトリのURLパス
-remote_path='https://github.com/okutani-t/go-code.git'
-# デプロイする
-branch='master'
+deploy_path=./www/
 
-### ssh ###
-# 本番環境のユーザー名
-user='hoge'
-# 本番環境のホスト名
-host='piyo.sakura.ne.jp'
+# デプロイするプロジェクトのディレクトリ名
+proj_name=dir_name
+
+# リモートリポジトリのURLパス
+remote_path=https://github.com/okutani-t/proj.git
+
+# デプロイするブランチ
+branch=master
+
+# 本番環境へのSSHログイン情報（ユーザ名@ホスト名）
+usr_at_host=user@host
 
 #############ここまで#############
 
-ssh ${user}@${host} "
-    # デプロイ場所があるか確認
+ssh ${usr_at_host} "
+    # Gitがあるか確認
+    if ! type 'git' > /dev/null 2>&1; then
+        echo 'git not found...'
+        exit 1
+    fi
+
+    # デプロイ場所が無かったら作成
     if [ ! -e ${deploy_path} ]; then
         mkdir -p ${deploy_path}
     fi
+
     cd ${deploy_path}
+
     # プロジェクトのディレクトリがあるか確認
     # なければclone、あればpullをおこなう
     if [ ! -e ${proj_name} ]; then
@@ -33,5 +40,6 @@ ssh ${user}@${host} "
     else
         cd ${proj_name}
         git pull origin ${branch}
+        echo 'deployment success!'
     fi
 "
