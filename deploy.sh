@@ -29,7 +29,7 @@ ssh ${user}@${host} "
     # プロジェクトのディレクトリがあるか確認
     # なければclone、あればpullをおこなう
     if [ ! -e ${proj_name} ]; then
-        git clone ${remote_path}
+        git clone ${remote_path} ${proj_name}
     else
         cd ${proj_name}
         git pull origin ${branch}
