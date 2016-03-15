@@ -19,7 +19,7 @@ usr_at_host=user@host
 
 #############ここまで#############
 
-ssh ${usr_at_host} "
+ssh -A ${usr_at_host} "
     # Gitがあるか確認
     if ! type 'git' > /dev/null 2>&1; then
         echo 'git not found...'
@@ -39,7 +39,10 @@ ssh ${usr_at_host} "
         git clone ${remote_path} ${proj_name}
     else
         cd ${proj_name}
-        git pull origin ${branch}
+        # 競合を起こさないよう、強制的にリモートリポジトリに合わせる
+        git fetch origin
+        git reset --hard origin/${branch}
+        # git pull origin ${branch}
         echo 'deployment success!'
     fi
 "
