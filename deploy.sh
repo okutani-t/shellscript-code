@@ -9,7 +9,7 @@ deploy_path=./www/
 proj_name=dir_name
 
 # リモートリポジトリのURLパス
-remote_path=https://github.com/okutani-t/proj.git
+remote_path=git@github.com:hoge/proj.git
 
 # デプロイするブランチ
 branch=master
@@ -18,6 +18,18 @@ branch=master
 usr_at_host=user@host
 
 #############ここまで#############
+
+# 本当にデプロイするか確認
+echo -n "Is it OK to deploy? [y/n]"
+read answer
+case `echo $answer | tr y Y` in
+    Y*)
+    ;;
+    *)
+        echo "Bye."
+        exit
+    ;;
+esac
 
 ssh -A ${usr_at_host} "
     # Gitがあるか確認
@@ -39,7 +51,7 @@ ssh -A ${usr_at_host} "
         git clone ${remote_path} ${proj_name}
     else
         cd ${proj_name}
-        # 競合を起こさないよう、強制的にリモートリポジトリに合わせる
+        # 競合を起こさないよう、強制的に最新のリモートリポジトリに合わせる
         git fetch origin
         git reset --hard origin/${branch}
         # git pull origin ${branch}
