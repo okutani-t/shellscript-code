@@ -3,13 +3,13 @@
 #############ここから#############
 
 # デプロイしたいディレクトリの場所
-deploy_path=./www/
+deploy_path=dir_path
 
 # デプロイするプロジェクトのディレクトリ名
-proj_name=dir_name
+proj_name=proj_name
 
 # リモートリポジトリのURLパス
-remote_path=git@github.com:hoge/proj.git
+remote_path=git@github.com:okutani-t/first-git.git
 
 # デプロイするブランチ
 branch=master
