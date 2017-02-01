@@ -9,6 +9,10 @@
 $ chmod +x hoge.sh
 ```
 
+## 作ったシェルスクリプトの説明
+
+作ったやつは以下。
+
 ### findgrep
 
 findとgrepで検索してくれるやつ。
@@ -53,4 +57,24 @@ PostgreSQLのDBをバックアップするやつ。中身見て書き換える�
 $ ./pg_backup.sh
 ```
 
-author: okutani
+### slack.sh
+
+slackに通知を送るスクリプト。URLあたりを適宜書き換える。
+
+```
+$ echo test1 | ./slack.sh
+$ ls | ./slack.sh
+$ w | ./slack.sh
+```
+
+一般的な使い方は、他のシェルから呼んであげる
+
+```
+echo "slackに送信"
+echo "◯◯の処理が正常に完了したよ" | ./slack.sh
+echo "slackに送信完了！"
+```
+
+## Author
+
+[okutani](http://okutani.net)
